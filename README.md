@@ -44,7 +44,7 @@ Color (Blue, Green, Red) to Class Name:
 (255, 000, 255) : IGNORE
 ```
 
-- IGNORE - These magenta pixels mask areas of missing labels, bad data or image boundaries. These pixels can be ignored.
+- IGNORE - These magenta pixels mask areas of missing labels or image boundaries. They can be ignored.
 
 ### Possible Improvements
 ----
