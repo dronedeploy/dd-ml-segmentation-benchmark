@@ -1,0 +1,5 @@
+dataset-sample
+dataset-full
+__pycache__
+wandb
+*.tar.gz
