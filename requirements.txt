@@ -1,5 +1,5 @@
-fastai==1.0.54
-typing==3.6.6
 numpy==1.17.1
+torch==1.1.0
 opencv_python==3.4.3.18
-wandb==0.8.11
+typing==3.6.6
+fastai==1.0.54
