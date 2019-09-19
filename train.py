@@ -1,7 +1,7 @@
 from fastai.vision import *
 from fastai.callbacks.hooks import *
-from util import MySaveModelCallback, ExportCallback, MyCSVLogger, Precision, Recall, FBeta
-import datasets
+from libs.util import MySaveModelCallback, ExportCallback, MyCSVLogger, Precision, Recall, FBeta
+from libs.datasets import download_dataset, load_dataset
 
 
 def run(dataset):
@@ -23,7 +23,7 @@ def run(dataset):
         FBeta(average='weighted', beta=1, clas_idx=1),
     ]
 
-    data = datasets.load_dataset(dataset, size, bs)
+    data = load_dataset(dataset, size, bs)
     encoder_model = models.resnet18
     learn = unet_learner(data, encoder_model, metrics=metrics, wd=wd, bottle=True, pretrained=pretrained, callback_fns=WandbCallback)
 
@@ -41,6 +41,6 @@ if __name__ == '__main__':
 
     # Change this to 'dataset-full' for the full dataset
     dataset = 'dataset-sample'
-    datasets.download_dataset(dataset)
+    download_dataset(dataset)
 
     run(dataset)

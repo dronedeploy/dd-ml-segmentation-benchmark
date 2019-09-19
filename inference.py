@@ -4,7 +4,6 @@ import torch
 from fastai.vision import *
 from fastai.callbacks.hooks import *
 from fastai.utils import *
-from fastai.vision.transform import dihedral
 
 CATEGORY2MASK = {
     0:  (255, 0, 255),

@@ -3,10 +3,10 @@ from fastai.vision import *
 from fastai.callbacks.hooks import *
 from pathlib import PosixPath
 
-from util import MySaveModelCallback, ExportCallback, MyCSVLogger, Precision, Recall, FBeta
+from libs.util import MySaveModelCallback, ExportCallback, MyCSVLogger, Precision, Recall, FBeta
 
 import numpy as np
-import images2chips
+import libs.images2chips
 import sys
 import os
 
@@ -21,7 +21,7 @@ def download_dataset(dataset):
         print(f'Downloading dataset "{dataset}"')
         os.system(f'curl "https://dl.dropboxusercontent.com/s/u3zrd1pgqxi0jvt/dataset-sample.tar.gz?dl=0" -o {dataset}.tar.gz')
         os.system(f'tar -xvf {dataset}.tar.gz')
-        images2chips.run(dataset)
+        libs.images2chips.run(dataset)
 
 def load_dataset(dataset, training_chip_size, bs):
     path = PosixPath(dataset)

@@ -2,7 +2,7 @@ import cv2
 import os
 import numpy as np
 
-from config import train_ids, val_ids, test_ids, LABELMAP, INV_LABELMAP
+from libs.config import train_ids, val_ids, test_ids, LABELMAP, INV_LABELMAP
 
 prefix = 'dataset-full'
 prefix = 'dataset-sample'
