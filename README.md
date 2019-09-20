@@ -20,7 +20,7 @@ This will download the sample dataset and begin training a model. You can monito
 python3 inference.py example_model ec09336a6f_06BA0AF311OPENPIPELINE
 ```
 
-This will generate an inference result using the model on that scene. The result is written to `prediction.png`. This inference will take place on the CPU so will take some time to generate. Here's what the prediction looks like, not bad for 50 lines of code but there is a lot of room for improvement.
+This will generate an inference result using the model on that scene. The result is written to `prediction.png`. Here's what the prediction looks like, not bad for 50 lines of code but there is a lot of room for improvement.
 
 ![Example](https://github.com/dronedeploy/dd-ml-segmentation-benchmark/raw/master/img/out.gif)
 
@@ -51,7 +51,7 @@ Color (Blue, Green, Red) to Class Name:
 The sample implementation is very basic and there is immediate opportunity to experiment with:
 - Data augmentation (`dataloader.py`)
 - Hyper- parameters (`train.py`)
-- Post-processing
+- Post-processing (`inference.py`)
 - Chip size (`images2chips.py`)
 - Model architecture (`train.py`)
 - Elevation tiles are not currently used at all (`images2chips.py`)
