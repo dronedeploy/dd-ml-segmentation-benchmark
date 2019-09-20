@@ -4,8 +4,6 @@ import numpy as np
 
 from libs.config import train_ids, val_ids, test_ids, LABELMAP, INV_LABELMAP
 
-prefix = 'dataset-full'
-prefix = 'dataset-sample'
 size   = 300
 stride = 300
 
@@ -89,7 +87,7 @@ def run(prefix):
         os.mkdir(os.path.join(prefix, 'label-chips'))
 
 
-    lines = [ line for line in open('dataset-sample/index.csv') ]
+    lines = [ line for line in open(f'{prefix}/index.csv') ]
     num_images = len(lines) - 1
     print(f"converting {num_images} images to chips - this may take a few minutes but only needs to be done once.")
 
