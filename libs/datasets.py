@@ -17,24 +17,31 @@ def download_dataset(dataset):
     """ Download a dataset, extract it and create the tiles """
 
     if dataset not in URLS:
-        print(f"Unknown dataset {dataset}")
+        print(f"unknown dataset {dataset}")
         sys.exit(0)
 
     filename = f'{dataset}.tar.gz'
     url = URLS[dataset]
 
     if not os.path.exists(filename):
-        print(f'Downloading dataset "{dataset}"')
+        print(f'downloading dataset "{dataset}"')
         os.system(f'curl "{url}" -o {filename}')
+    else:
+        print(f"{filename} already exists, remove it to re-download.")
 
     if not os.path.exists(dataset):
         print(f'extracting "{filename}"')
         os.system(f'tar -xvf {filename}')
     else:
-        print(f'Folder "{dataset}" already exists.')
+        print(f'folder "{dataset}" already exists .. remove it to re-create.')
 
-    print("Creating chips")
-    libs.images2chips.run(dataset)
+    image_chips = f'{dataset}/image-chips'
+    label_chips = f'{dataset}/label-chips'
+    if not os.path.exists(image_chips) and not os.path.exists(label_chips):
+        print("creating chips")
+        libs.images2chips.run(dataset)
+    else:
+        print("chips folders already exist, remove then to recreate chips..")
 
 def load_dataset(dataset, training_chip_size, bs):
     """ Load a dataset, create batches and augmentation """
