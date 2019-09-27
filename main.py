@@ -7,8 +7,8 @@ import wandb
 
 if __name__ == '__main__':
 
-    dataset = 'dataset-sample' # 424 Mb download
-    #dataset = 'dataset-medium' # 5.3 Gb download
+    dataset = 'dataset-sample'  # 424Mb download
+    # dataset = 'dataset-medium' # 5.3Gb download
 
     config = {
         'name' : 'baseline',

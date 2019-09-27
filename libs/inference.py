@@ -118,7 +118,7 @@ def run_inference(dataset, model_name='example_model'):
 
     inf = Inference(modelpath, model_name, size=size)
 
-    for scene in train_ids + test_ids + val_ids:
+    for scene in test_ids:
 
         imagefile = f'{dataset}/images/{scene}-ortho.tif'
         labelfile = f'{dataset}/labels/{scene}-label.png'

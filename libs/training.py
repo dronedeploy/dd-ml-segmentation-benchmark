@@ -17,7 +17,7 @@ from wandb.fastai import WandbCallback
 def train_model(dataset):
     """ Trains a DynamicUnet on the dataset """
 
-    epochs = 15
+    epochs = 20
     lr = 1e-4
     size = 300
     wd = 1e-2

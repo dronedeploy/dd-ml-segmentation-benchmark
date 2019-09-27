@@ -65,7 +65,6 @@ def image2tile(prefix, scene, dataset, orthofile, elevafile, labelfile, windowx=
             counter += 1
 
 
-
 def get_split(scene):
     if scene in train_ids:
         return "train.txt"
@@ -96,6 +95,10 @@ def run(prefix):
         line = line.strip().split(' ')
         scene = line[1]
         dataset = get_split(scene)
+
+        if dataset == 'test.txt':
+            #print("don't create chips from test scene, they are used in inference.")
+            continue
 
         orthofile = os.path.join(prefix, 'images',     scene + '-ortho.tif')
         elevafile = os.path.join(prefix, 'elevations', scene + '-elev.tif')
