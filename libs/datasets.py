@@ -27,13 +27,13 @@ def download_dataset(dataset):
         print(f'downloading dataset "{dataset}"')
         os.system(f'curl "{url}" -o {filename}')
     else:
-        print(f"{filename} already exists, remove it to re-download.")
+        print(f"zipfile {filename} already exists, remove it if you want to re-download.")
 
     if not os.path.exists(dataset):
         print(f'extracting "{filename}"')
         os.system(f'tar -xvf {filename}')
     else:
-        print(f'folder "{dataset}" already exists .. remove it to re-create.')
+        print(f'folder "{dataset}" already exists, remove it if you want to re-create.')
 
     image_chips = f'{dataset}/image-chips'
     label_chips = f'{dataset}/label-chips'
@@ -41,7 +41,7 @@ def download_dataset(dataset):
         print("creating chips")
         libs.images2chips.run(dataset)
     else:
-        print("chips folders already exist, remove then to recreate chips..")
+        print("chip folders {image_chips} and {label_chips} already exist, remove them to recreate chips.")
 
 def load_dataset(dataset, training_chip_size, bs):
     """ Load a dataset, create batches and augmentation """
