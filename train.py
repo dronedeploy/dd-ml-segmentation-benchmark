@@ -11,17 +11,27 @@ from libs.datasets import download_dataset, load_dataset
 
 def run(dataset):
     """ Trains a DynamicUnet on the dataset """
-    
-    import wandb
-    from wandb.fastai import WandbCallback
-    wandb.init()
 
     epochs = 15
     lr = 1e-4
     size = 300
     wd = 1e-2
-    bs = 8
+    bs = 8 # reduce this if you are running out of GPU memory
     pretrained = True
+
+    config = {
+        'epochs' : epochs,
+        'lr' : lr,
+        'size' : size,
+        'wd' : wd,
+        'bs' : bs,
+        'pretrained' : pretrained,
+    }
+
+    import wandb
+    from wandb.fastai import WandbCallback
+    wandb.init()
+
 
     metrics = [
         Precision(average='weighted', clas_idx=1),

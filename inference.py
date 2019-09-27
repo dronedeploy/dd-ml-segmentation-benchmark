@@ -3,6 +3,7 @@
     2019 - Nicholas Pilkington, DroneDeploy
 """
 
+import os
 import cv2
 import sys
 import torch
@@ -83,9 +84,9 @@ def tensor2numpy(tensor):
 
 class Inference(object):
 
-    def __init__(self, modelfile, predsfile, size=1200):
+    def __init__(self, modelpath, modelfile, predsfile, size=1200):
         print("loading model", modelfile, "...")
-        self.learn = load_learner('.', modelfile)
+        self.learn = load_learner(modelpath, modelfile)
         self.predsfile = predsfile
         self.learn.data.single_ds.tfmargs['size'] = size
         self.learn.data.single_ds.tfmargs_y['size'] = size
@@ -129,12 +130,18 @@ if __name__ == '__main__':
 
     model_name = sys.argv[1]
     scene = sys.argv[2]
+
     size = 1200
     dataset = 'dataset-sample'
 
+    modelpath = f'{dataset}/image-chips'
     imagefile = f'{dataset}/images/{scene}-ortho.tif'
     labelfile = f'{dataset}/labels/{scene}-label.png'
-    predsfile =  "prediction.png"
+    predsfile = f"{scene}-prediction.png"
 
-    inf = Inference(model_name, predsfile, size=size)
+    if not os.path.exists(os.path.join(modelpath, model_name)):
+        print(f"Model {model_name} not found in {modelpath}")
+        sys.exit(0)
+
+    inf = Inference(modelpath, model_name, predsfile, size=size)
     inf.predict(imagefile, labelfile=labelfile, size=size)

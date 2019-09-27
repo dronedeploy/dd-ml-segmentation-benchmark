@@ -20,7 +20,7 @@ def download_dataset(dataset):
         print(f"Unknown dataset {dataset}")
         sys.exit(0)
 
-    filename = f'{dataset}.tar.gz
+    filename = f'{dataset}.tar.gz'
     url = URLS[dataset]
 
     if not os.path.exists(filename):
