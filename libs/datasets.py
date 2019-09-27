@@ -9,8 +9,8 @@ import sys
 import os
 
 URLS = {
-    'dataset-sample' : 'https://dl.dropboxusercontent.com/s/h8a8kev0rktf4kq/dataset-sample.tar.gz?dl=0'
-    'dataset-medium' : 'https://dl.dropboxusercontent.com/s/r0dj9mhyv4bgbme/dataset-medium.tar.gz?dl=0'
+    'dataset-sample' : 'https://dl.dropboxusercontent.com/s/h8a8kev0rktf4kq/dataset-sample.tar.gz?dl=0',
+    'dataset-medium' : 'https://dl.dropboxusercontent.com/s/r0dj9mhyv4bgbme/dataset-medium.tar.gz?dl=0',
 }
 
 def download_dataset(dataset):
@@ -38,7 +38,7 @@ def download_dataset(dataset):
 
 def load_dataset(dataset, training_chip_size, bs):
     """ Load a dataset, create batches and augmentation """
-    
+
     path = PosixPath(dataset)
     label_path = path/'label-chips'
     image_path = path/'image-chips'
