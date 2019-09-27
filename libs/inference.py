@@ -12,6 +12,7 @@ from fastai.vision import *
 from fastai.callbacks.hooks import *
 from fastai.utils import *
 from libs.config import train_ids, test_ids, val_ids, LABELMAP
+import wandb
 
 def category2mask(img):
     """ Convert a category image to color mask """
@@ -104,6 +105,12 @@ def run_inference(dataset, model_name='example_model'):
 
     size = 1200
     modelpath = f'{dataset}/image-chips'
+
+    inference_params = {
+        'inference_size' : size
+    }
+
+    wandb.config.update(inference_params)
 
     if not os.path.exists(os.path.join(modelpath, model_name)):
         print(f"model {model_name} not found in {modelpath}")
