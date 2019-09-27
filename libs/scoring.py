@@ -120,20 +120,17 @@ def score_masks(labelfile, predictionfile):
 
     fig, cm = plot_confusion_matrix(label_class, pred_class, np.array(LABELS), title=predictionfile)
 
-    score_params = {
-        'name' : 'inference_score',
-        'predictionfile' : predictionfile,
-        'precision' : precision,
-        'recall' : recall,
-        'f1' : f1,
-        # 'cm' : cm #FIXME: This doesnt log successfully to wandb
-    }
-
-    return score_params
+    return precision, recall, f1
 
 def score_model(dataset):
 
-    import wandb
+    scores = []
+
+    precision = []
+    recall = []
+    f1 = []
+
+    predictions = []
 
     for scene in train_ids + test_ids + val_ids:
 
@@ -147,10 +144,26 @@ def score_model(dataset):
         if not os.path.exists(predsfile):
             continue
 
-        score_params = score_masks(labelfile, predsfile)
+        a, b, c = score_masks(labelfile, predsfile)
 
-        wandb.log(score_params)
-        wandb.save(predsfile)
+        precision.append(a)
+        recall.append(b)
+        f1.append(c)
+
+        predictions.append(predsfile)
+
+    scores = {
+        'f1_mean' : np.mean(f1),
+        'f1_std' : np.std(f1),
+
+        'pr_mean' : np.mean(precision),
+        'pr_std' : np.std(precision),
+
+        're_mean' : np.mean(recall),
+        're_std' : np.std(recall),
+    }
+
+    return scores, predictions
 
 
 if __name__ == '__main__':

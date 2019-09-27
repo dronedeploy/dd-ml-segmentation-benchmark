@@ -33,7 +33,7 @@ def train_model(dataset):
         'pretrained' : pretrained,
     }
 
-    wandb.log(config)
+    wandb.config.update(config)
 
     metrics = [
         Precision(average='weighted', clas_idx=1),

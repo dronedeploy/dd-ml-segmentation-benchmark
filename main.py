@@ -25,6 +25,11 @@ if __name__ == '__main__':
 
     # run inference on all images and submit the scores and predictions
     inference.run_inference(dataset)
-
     # score all the test images and upload to wandb
-    scoring.score_model(dataset)
+
+    score, filenames = scoring.score_model(dataset)
+
+    wandb.config.update(score)
+
+    for filename in filenames:
+        wandb.save( filename )
