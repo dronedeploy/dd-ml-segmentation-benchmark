@@ -11,16 +11,10 @@ To start training a model on a small sample dataset run the following, once work
 
 ```
 pip3 install -r requirements.txt
-python3 train.py
+python3 main.py
 ```
 
-This will download the sample dataset and begin training a model. You can monitor training performance on [Weights and Biases](https://www.wandb.com/). Once training is complete you can perform inference using your trained model on a scene by running:
-
-```
-python3 inference.py example_model e1d3e6f6ba_B4DE0FB544INSPIRE
-```
-
-This will generate an inference result using the model on that scene. The result is written to `prediction.png`. Here's what the prediction looks like, not bad for 50 lines of code but there is a lot of room for improvement.
+This will download the sample dataset and begin training a model. You can monitor training performance on [Weights and Biases](https://www.wandb.com/). Once training is complete inference will be performed on all test scene and a number of images names `123123_ABCABC-prediction.png` will be created. After the the images will be scores and the results submitted. Here's what the prediction looks like, not bad for 50 lines of code but there is a lot of room for improvement.
 
 ![Example](https://github.com/dronedeploy/dd-ml-segmentation-benchmark/raw/master/img/out.gif)
 

@@ -131,7 +131,7 @@ def score_masks(labelfile, predictionfile):
 
     return score_params
 
-def run(dataset):
+def score_model(dataset):
 
     import wandb
 
@@ -154,4 +154,4 @@ def run(dataset):
 
 
 if __name__ == '__main__':
-    run()
+    score_model('dataset-sample')

@@ -13,13 +13,11 @@ from libs import datasets
 import wandb
 from wandb.fastai import WandbCallback
 
-config = {'name' : 'baseline'}
-wandb.init(config=config)
 
 def train_model(dataset):
     """ Trains a DynamicUnet on the dataset """
 
-    epochs = 1
+    epochs = 15
     lr = 1e-4
     size = 300
     wd = 1e-2
@@ -34,6 +32,8 @@ def train_model(dataset):
         'bs' : bs,
         'pretrained' : pretrained,
     }
+
+    wandb.log(config)
 
     metrics = [
         Precision(average='weighted', clas_idx=1),
@@ -53,19 +53,3 @@ def train_model(dataset):
 
     learn.unfreeze()
     learn.fit_one_cycle(epochs, lr, callbacks=callbacks)
-
-if __name__ == '__main__':
-
-    # Change this to 'dataset-full' for the full dataset
-    dataset = 'dataset-sample' # 424 Mb download
-    #dataset = 'dataset-medium' # 5.3 Gb download
-    datasets.download_dataset(dataset)
-
-    # Train the example model and save it in dataset-sample/image_chips/example_model
-    train_model(dataset)
-
-    # run inference on all images and submit the scores and predictions
-    inference.run(dataset)
-
-    # score all the test images and upload to wandb
-    scoring.run(dataset)

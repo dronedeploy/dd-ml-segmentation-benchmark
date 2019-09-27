@@ -100,7 +100,7 @@ class Inference(object):
         mask = category2mask(prediction)
         cv2.imwrite(predsfile, mask)
 
-def run(dataset, model_name='example_model'):
+def run_inference(dataset, model_name='example_model'):
 
     size = 1200
     modelpath = f'{dataset}/image-chips'
@@ -126,4 +126,4 @@ def run(dataset, model_name='example_model'):
 
 
 if __name__ == '__main__':
-    run()
+    run_inference()
