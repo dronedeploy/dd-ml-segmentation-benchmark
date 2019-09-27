@@ -26,7 +26,7 @@ This will generate an inference result using the model on that scene. The result
 
 ### Dataset Details
 
-The *full dataset* can be downloaded by changing a line in `train.py` this is the dataset that should be used for benchmarking. The dataset comprises 155 aerial scenes from drones. Each scene has a ground resolution of 10 cm per pixel. For each scene there is a corresponding "image", "elevation" and "label". The image is an RGB tif, the elevation is a single channel floating point .tif and the label is a PNG with 7 colors representing the 7 classes. Please see `index.csv` - inside the downloaded dataset - for a description of the quality of each labelled image and the distribution of the labels. To use the dataset you can split it into smaller chips (see `images2chips.py`). Here is an example of one of the labelled scenes:
+The *full dataset* can be downloaded by changing a line in `train.py` this is the dataset that should be used for benchmarking. The dataset comprises a number of aerial scenes captured from drones. Each scene has a ground resolution of 10 cm per pixel. For each scene there is a corresponding "image", "elevation" and "label". The image is an RGB tif, the elevation is a single channel floating point .tif and the label is a PNG with 7 colors representing the 7 classes. Please see `index.csv` - inside the downloaded dataset - for a description of the quality of each labelled image and the distribution of the labels. To use the dataset you can split it into smaller chips (see `images2chips.py`). Here is an example of one of the labelled scenes:
 
 ![Example](https://github.com/dronedeploy/dd-ml-segmentation-benchmark/raw/master/img/15efe45820_D95DF0B1F4INSPIRE-label.png)
 
