@@ -1,3 +1,8 @@
+"""
+    train.py - Sample implementation of a Dynamic Unet using FastAI
+    2019 - Nicholas Pilkington, DroneDeploy
+"""
+
 from fastai.vision import *
 from fastai.callbacks.hooks import *
 from libs.util import MySaveModelCallback, ExportCallback, MyCSVLogger, Precision, Recall, FBeta
@@ -5,7 +10,8 @@ from libs.datasets import download_dataset, load_dataset
 
 
 def run(dataset):
-
+    """ Trains a DynamicUnet on the dataset """
+    
     import wandb
     from wandb.fastai import WandbCallback
     wandb.init()
@@ -14,7 +20,7 @@ def run(dataset):
     lr = 1e-4
     size = 300
     wd = 1e-2
-    bs = 16
+    bs = 8
     pretrained = True
 
     metrics = [
@@ -36,11 +42,9 @@ def run(dataset):
     learn.unfreeze()
     learn.fit_one_cycle(epochs, lr, callbacks=callbacks)
 
-
 if __name__ == '__main__':
-
     # Change this to 'dataset-full' for the full dataset
-    dataset = 'dataset-sample'
+    dataset = 'dataset-sample' # 424 Mb download
+    # dataset = 'dataset-medium' # 5.3 Gb download
     download_dataset(dataset)
-
     run(dataset)

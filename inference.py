@@ -1,3 +1,8 @@
+"""
+    inference.py - Sample implementation of inference with a Dynamic Unet using FastAI
+    2019 - Nicholas Pilkington, DroneDeploy
+"""
+
 import cv2
 import sys
 import torch
