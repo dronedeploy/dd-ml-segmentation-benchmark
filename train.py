@@ -30,7 +30,7 @@ def run(dataset):
 
     import wandb
     from wandb.fastai import WandbCallback
-    wandb.init()
+    wandb.init(config=config)
 
 
     metrics = [
@@ -55,6 +55,6 @@ def run(dataset):
 if __name__ == '__main__':
     # Change this to 'dataset-full' for the full dataset
     dataset = 'dataset-sample' # 424 Mb download
-    # dataset = 'dataset-medium' # 5.3 Gb download
+    dataset = 'dataset-medium' # 5.3 Gb download
     download_dataset(dataset)
     run(dataset)
