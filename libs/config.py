@@ -1,3 +1,5 @@
+LABELS = ['BUILDING', 'CLUTTER', 'VEGETATION', 'WATER', 'GROUND', 'CAR']
+
 # Class to color (BGR)
 LABELMAP = {
     0 : (255,   0, 255),

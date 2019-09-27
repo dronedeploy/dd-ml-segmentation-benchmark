@@ -5,14 +5,21 @@
 
 from fastai.vision import *
 from fastai.callbacks.hooks import *
+from libs import inference
+from libs import scoring
 from libs.util import MySaveModelCallback, ExportCallback, MyCSVLogger, Precision, Recall, FBeta
-from libs.datasets import download_dataset, load_dataset
+from libs import datasets
 
+import wandb
+from wandb.fastai import WandbCallback
 
-def run(dataset):
+config = {'name' : 'baseline'}
+wandb.init(config=config)
+
+def train_model(dataset):
     """ Trains a DynamicUnet on the dataset """
 
-    epochs = 15
+    epochs = 1
     lr = 1e-4
     size = 300
     wd = 1e-2
@@ -28,18 +35,13 @@ def run(dataset):
         'pretrained' : pretrained,
     }
 
-    import wandb
-    from wandb.fastai import WandbCallback
-    wandb.init(config=config)
-
-
     metrics = [
         Precision(average='weighted', clas_idx=1),
         Recall(average='weighted', clas_idx=1),
         FBeta(average='weighted', beta=1, clas_idx=1),
     ]
 
-    data = load_dataset(dataset, size, bs)
+    data = datasets.load_dataset(dataset, size, bs)
     encoder_model = models.resnet18
     learn = unet_learner(data, encoder_model, metrics=metrics, wd=wd, bottle=True, pretrained=pretrained, callback_fns=WandbCallback)
 
@@ -53,8 +55,17 @@ def run(dataset):
     learn.fit_one_cycle(epochs, lr, callbacks=callbacks)
 
 if __name__ == '__main__':
+
     # Change this to 'dataset-full' for the full dataset
     dataset = 'dataset-sample' # 424 Mb download
     #dataset = 'dataset-medium' # 5.3 Gb download
-    download_dataset(dataset)
-    run(dataset)
+    datasets.download_dataset(dataset)
+
+    # Train the example model and save it in dataset-sample/image_chips/example_model
+    train_model(dataset)
+
+    # run inference on all images and submit the scores and predictions
+    inference.run(dataset)
+
+    # score all the test images and upload to wandb
+    scoring.run(dataset)

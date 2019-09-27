@@ -7,13 +7,14 @@ import os
 import cv2
 import sys
 import torch
+from libs.scoring import score_masks
 from fastai.vision import *
 from fastai.callbacks.hooks import *
 from fastai.utils import *
 from libs.config import train_ids, test_ids, val_ids, LABELMAP
 
 def category2mask(img):
-
+    """ Convert a category image to color mask """
     if len(img) == 3:
         if img.shape[2] == 3:
             img = img[:, :, 0]
@@ -28,6 +29,7 @@ def category2mask(img):
 
 
 def chip_iterator(image, size=256):
+    """ Generator that yields chips of size `size`x`size from `image` """
 
     img = cv2.imread(image)
     shape = img.shape
@@ -37,21 +39,30 @@ def chip_iterator(image, size=256):
     for xi, x in enumerate(range(0, shape[1], size)):
         for yi, y in enumerate(range(0, shape[0], size)):
             chip = img[y:y+size, x:x+size, :]
+            # Padding right and bottom out to `size` with black pixels
             chip = cv2.copyMakeBorder(chip, top=0, bottom=size - chip.shape[0], left=0, right=size - chip.shape[1], borderType= cv2.BORDER_CONSTANT, value=[0, 0, 0] )
             yield (chip, xi, yi, chip_count)
-
 
 def image_size(filename):
     img = cv2.imread(filename)
     return img.shape
 
 def tensor2numpy(tensor):
+    """ Convert a pytorch tensor image presentation to numpy OpenCV representation """
+
     ret = tensor.px.numpy()
     ret = ret * 255.
     ret = ret.astype('uint8')
     ret = np.transpose(ret, (1, 2, 0))
     return ret
 
+def numpy2tensor(chip):
+    tensorchip = np.transpose(chip, (2, 0, 1))
+    tensorchip = tensorchip.astype('float32')
+    tensorchip = tensorchip / 255.
+    tensorchip = torch.from_numpy(tensorchip)
+    tensorchip = Image(tensorchip)
+    return tensorchip
 
 class Inference(object):
 
@@ -79,11 +90,7 @@ class Inference(object):
             if imagechip.sum() == 0:
                 continue
 
-            tensorchip = np.transpose(imagechip, (2, 0, 1))
-            tensorchip = tensorchip.astype('float32')
-            tensorchip = tensorchip / 255.
-            tensorchip = torch.from_numpy(tensorchip)
-            tensorchip = Image(tensorchip)
+            tensorchip = numpy2tensor(imagechip)
             preds =  self.learn.predict(tensorchip)[2]
             # add one because we don't predict the ignore class
             category_chip = preds.data.argmax(0).numpy() + 1
@@ -93,12 +100,9 @@ class Inference(object):
         mask = category2mask(prediction)
         cv2.imwrite(predsfile, mask)
 
-if __name__ == '__main__':
-
-    model_name = sys.argv[1]
+def run(dataset, model_name='example_model'):
 
     size = 1200
-    dataset = 'dataset-sample'
     modelpath = f'{dataset}/image-chips'
 
     if not os.path.exists(os.path.join(modelpath, model_name)):
@@ -114,8 +118,12 @@ if __name__ == '__main__':
         predsfile = f"{scene}-prediction.png"
 
         if not os.path.exists(imagefile):
-            print(f"image {imagefile} not found, skipping.")
+            #print(f"image {imagefile} not found, skipping.")
             continue
 
         print(f"running inference on image {imagefile}.")
         inf.predict(imagefile, predsfile, size=size)
+
+
+if __name__ == '__main__':
+    run()
