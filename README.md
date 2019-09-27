@@ -14,7 +14,7 @@ pip3 install -r requirements.txt
 python3 main.py
 ```
 
-This will download the sample dataset and begin training a model. You can monitor training performance on [Weights and Biases](https://www.wandb.com/). Once training is complete inference will be performed on all test scenes and a number of prediction images with names like `123123_ABCABC-prediction.png` will be created. After the the images are created they will be scored. Here's what the prediction looks like, not bad for 50 lines of code but there is a lot of room for improvement:
+This will download the sample dataset and begin training a model. You can monitor training performance on [Weights and Biases](https://www.wandb.com/). Once training is complete inference will be performed on all test scenes and a number of prediction images with names like `123123_ABCABC-prediction.png` will be created. After the the images are created they will be scored. Here's what the prediction looks like, not bad for 50 lines of code but there is a lot of room for improvement:  
 
 ![Example](https://github.com/dronedeploy/dd-ml-segmentation-benchmark/raw/master/img/out.gif)
 
