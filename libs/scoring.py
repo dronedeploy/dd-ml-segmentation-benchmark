@@ -74,7 +74,9 @@ def plot_confusion_matrix(y_true, y_pred, classes,
     plt.ylim([-0.5, cm.shape[0]- 0.5])
 
     fig.tight_layout()
-    return fig, cm
+    savefile = 'score-' + title
+    plt.savefig(savefile)
+    return savefile, cm
 
 def score_masks(labelfile, predictionfile):
 
@@ -107,9 +109,9 @@ def score_masks(labelfile, predictionfile):
     f1 = f1_score(label_class, pred_class, average='weighted')
     print(f'precision={precision} recall={recall} f1={f1}')
 
-    fig, cm = plot_confusion_matrix(label_class, pred_class, np.array(LABELS), title=predictionfile)
+    savefile, cm = plot_confusion_matrix(label_class, pred_class, np.array(LABELS), title=predictionfile)
 
-    return precision, recall, f1
+    return precision, recall, f1, savefile
 
 def score_model(dataset):
 
@@ -120,6 +122,7 @@ def score_model(dataset):
     f1 = []
 
     predictions = []
+    confusions = []
 
     for scene in test_ids:
 
@@ -132,13 +135,14 @@ def score_model(dataset):
         if not os.path.exists(predsfile):
             continue
 
-        a, b, c = score_masks(labelfile, predsfile)
+        a, b, c, savefile = score_masks(labelfile, predsfile)
 
         precision.append(a)
         recall.append(b)
         f1.append(c)
 
         predictions.append(predsfile)
+        confusions.append(savefile)
 
     scores = {
         'f1_mean' : np.mean(f1),
@@ -151,7 +155,7 @@ def score_model(dataset):
         're_std' : np.std(recall),
     }
 
-    return scores, predictions
+    return scores, zip(predictions, confusions)
 
 
 if __name__ == '__main__':
