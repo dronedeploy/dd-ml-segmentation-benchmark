@@ -42,7 +42,7 @@ def download_dataset(dataset):
         print("creating chips")
         libs.images2chips.run(dataset)
     else:
-        print("chip folders {image_chips} and {label_chips} already exist, remove them to recreate chips.")
+        print(f"chip folders {image_chips} and {label_chips} already exist, remove them to recreate chips.")
 
 def load_dataset(dataset, training_chip_size, bs):
     """ Load a dataset, create batches and augmentation """

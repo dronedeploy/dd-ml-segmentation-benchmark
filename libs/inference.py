@@ -100,10 +100,10 @@ class Inference(object):
         mask = category2mask(prediction)
         cv2.imwrite(predsfile, mask)
 
-def run_inference(dataset, model_name='example_model'):
+def run_inference(dataset, model_name='baseline_model'):
 
     size = 1200
-    modelpath = f'{dataset}/image-chips'
+    modelpath = 'models'
 
     if not os.path.exists(os.path.join(modelpath, model_name)):
         print(f"model {model_name} not found in {modelpath}")

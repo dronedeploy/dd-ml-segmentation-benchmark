@@ -43,11 +43,11 @@ def train_model(dataset):
 
     data = datasets.load_dataset(dataset, size, bs)
     encoder_model = models.resnet18
-    learn = unet_learner(data, encoder_model, metrics=metrics, wd=wd, bottle=True, pretrained=pretrained, callback_fns=WandbCallback)
+    learn = unet_learner(data, encoder_model, path='models', metrics=metrics, wd=wd, bottle=True, pretrained=pretrained, callback_fns=WandbCallback)
 
     callbacks = [
-        MyCSVLogger(learn, filename='example_model'),
-        ExportCallback(learn, "example_model", monitor='f_beta'),
+        MyCSVLogger(learn, filename='baseline_model'),
+        ExportCallback(learn, "baseline_model", monitor='f_beta'),
         MySaveModelCallback(learn, every='epoch', monitor='f_beta')
     ]
 
