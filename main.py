@@ -19,7 +19,7 @@ if __name__ == '__main__':
 
     datasets.download_dataset(dataset)
 
-    # train the baseline model
+    # train the baseline model and save it in models folder
     training.train_model(dataset)
 
     # use the train model to run inference on all test scenes
