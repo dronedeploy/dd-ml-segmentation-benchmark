@@ -17,18 +17,17 @@ if __name__ == '__main__':
 
     wandb.init(config=config)
 
-    # Change this to 'dataset-full' for the full dataset
     datasets.download_dataset(dataset)
 
-    # Train the example model and save it in dataset-sample/image_chips/example_model
+    # train the baseline model
     training.train_model(dataset)
 
-    # run inference on all images and submit the scores and predictions
+    # use the train model to run inference on all test scenes
     inference.run_inference(dataset)
-    # score all the test images and upload to wandb
 
+    # scores all the test images compared to the ground truth labels then
+    # send the scores (f1, precision, recall) and prediction images to wandb
     score, filenames = scoring.score_model(dataset)
-
     wandb.config.update(score)
 
     for filename in filenames:

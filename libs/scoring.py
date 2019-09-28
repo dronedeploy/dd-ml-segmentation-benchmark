@@ -1,24 +1,13 @@
-# run with either mask, category or string
-
 import os
-import click
-import rasterio
-import glob
 import cv2
-import sys
-import time
-import torch
 
+from libs.config import LABELS, INV_LABELMAP, test_ids
 
-from libs.config import LABELS, LABELMAP, INV_LABELMAP, train_ids, val_ids, test_ids
-
-import matplotlib.pyplot as plt
-
-from sklearn import svm, datasets
-from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix
 from sklearn.utils.multiclass import unique_labels
-from sklearn.metrics import f1_score, accuracy_score, precision_score, recall_score
+from sklearn.metrics import f1_score, precision_score, recall_score
+
+import matplotlib.pyplot as plt
 import numpy as np
 
 
@@ -134,7 +123,6 @@ def score_model(dataset):
 
     for scene in test_ids:
 
-        imagefile = f'{dataset}/images/{scene}-ortho.tif'
         labelfile = f'{dataset}/labels/{scene}-label.png'
         predsfile = f"{scene}-prediction.png"
 
