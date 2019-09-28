@@ -113,7 +113,7 @@ def score_masks(labelfile, predictionfile):
 
     return precision, recall, f1, savefile
 
-def score_model(dataset):
+def score_predictions(dataset):
 
     scores = []
 
@@ -144,19 +144,18 @@ def score_model(dataset):
         predictions.append(predsfile)
         confusions.append(savefile)
 
+    # Compute test set scores
     scores = {
         'f1_mean' : np.mean(f1),
-        'f1_std' : np.std(f1),
-
+        'f1_std'  : np.std(f1),
         'pr_mean' : np.mean(precision),
-        'pr_std' : np.std(precision),
-
+        'pr_std'  : np.std(precision),
         're_mean' : np.mean(recall),
-        're_std' : np.std(recall),
+        're_std'  : np.std(recall),
     }
 
     return scores, zip(predictions, confusions)
 
 
 if __name__ == '__main__':
-    score_model('dataset-sample')
+    score_predictions('dataset-sample')
