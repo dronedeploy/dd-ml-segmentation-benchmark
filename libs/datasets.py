@@ -28,7 +28,7 @@ def download_dataset(dataset):
         print(f'downloading dataset "{dataset}"')
         os.system(f'curl "{url}" -o {filename}')
     else:
-        print(f'zipfile "{filename}" already exists, remove it if you want to re-download.'')
+        print(f'zipfile "{filename}" already exists, remove it if you want to re-download.')
 
     if not os.path.exists(dataset):
         print(f'extracting "{filename}"')
@@ -56,6 +56,5 @@ def load_dataset(dataset, training_chip_size, bs):
     codes = np.array(LABELS)
     src = SegmentationItemList.from_folder(image_path).split_by_fname_file('../valid.txt').label_from_func(get_y_fn, classes=codes)
     # some data augmentation here
-    # data = src.transform(get_transforms(flip_vert=True, max_warp=0., max_zoom=0., max_rotate=180.), size=training_chip_size, tfm_y=True).databunch(bs=bs)
-    data = src.transform(get_transforms(flip_vert=True), size=training_chip_size, tfm_y=True).databunch(bs=bs)
+    data = src.transform(get_transforms(flip_vert=True, max_warp=0., max_zoom=0., max_rotate=180.), size=training_chip_size, tfm_y=True).databunch(bs=bs)
     return data

@@ -124,7 +124,8 @@ def score_predictions(dataset):
     predictions = []
     confusions = []
 
-    for scene in test_ids:
+    for scene in train_ids + val_ids + test_ids:
+    #for scene in test_ids:
 
         labelfile = f'{dataset}/labels/{scene}-label.png'
         predsfile = f"{scene}-prediction.png"
