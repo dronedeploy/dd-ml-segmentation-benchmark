@@ -5,3 +5,4 @@ dataset-whole
 __pycache__
 wandb
 *.tar.gz
+models

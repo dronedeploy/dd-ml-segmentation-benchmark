@@ -39,7 +39,7 @@ def image2tile(prefix, scene, dataset, orthofile, elevafile, labelfile, windowx=
 
     xsize = shape[1]
     ysize = shape[0]
-    print(f"converting image {orthofile} {xsize}x{ysize} to chips ...")
+    print(f"converting {dataset} image {orthofile} {xsize}x{ysize} to chips ...")
 
     counter = 0
 
@@ -97,7 +97,7 @@ def run(prefix):
         dataset = get_split(scene)
 
         if dataset == 'test.txt':
-            #print("don't create chips from test scene, they are used in inference.")
+            print("not converting test image {scene} to chips, it will be used for inference.")
             continue
 
         orthofile = os.path.join(prefix, 'images',     scene + '-ortho.tif')
