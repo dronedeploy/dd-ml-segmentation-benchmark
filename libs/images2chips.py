@@ -97,7 +97,7 @@ def run(prefix):
         dataset = get_split(scene)
 
         if dataset == 'test.txt':
-            print("not converting test image {scene} to chips, it will be used for inference.")
+            print(f"not converting test image {scene} to chips, it will be used for inference.")
             continue
 
         orthofile = os.path.join(prefix, 'images',     scene + '-ortho.tif')
