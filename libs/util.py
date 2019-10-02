@@ -1,5 +1,6 @@
 from typing import Any
-from fastai.callbacks import CSVLogger, Callback, SaveModelCallback, TrackerCallback
+from fastai.callbacks import CSVLogger, SaveModelCallback, TrackerCallback
+from fastai.callback import Callback
 from fastai.metrics import add_metrics
 from fastai.torch_core import dataclass, torch, Tensor, Optional, warn
 from fastai.basic_train import Learner
@@ -22,6 +23,7 @@ class ExportCallback(TrackerCallback):
             self.best = current
             self.learn.export(self.model_path)
 
+# TODO: does this delete some other path or just overwrite?
 class MySaveModelCallback(SaveModelCallback):
     """Saves the model after each epoch to potentially resume training.
 
@@ -48,6 +50,7 @@ class MyCSVLogger(CSVLogger):
 
     def on_train_begin(self, **kwargs):
         if self.path.exists():
+            # TODO: does this open a file named "a"...?
             self.file = self.path.open('a')
         else:
             super().on_train_begin(**kwargs)
