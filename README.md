@@ -7,7 +7,7 @@ This repository contains a description of the DroneDeploy Segmentation Dataset a
 
 ### Training
 
-To start training a model on a small sample dataset run the following, once working you should use the *full dataset*  by changing `train.py`
+To start training a model on a small sample dataset run the following, once working you should use the *full dataset*  by changing `main.py`
 
 ```
 pip3 install -r requirements.txt
