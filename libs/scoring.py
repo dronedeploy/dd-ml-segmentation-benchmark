@@ -25,7 +25,8 @@ def wherecolor(img, color, negate = False):
 def plot_confusion_matrix(y_true, y_pred, classes,
                           normalize=True,
                           title=None,
-                          cmap=plt.cm.Blues):
+                          cmap=plt.cm.Blues,
+                          savedir="score_files"):
     """
     This function prints and plots the confusion matrix.
     Normalization can be applied by setting `normalize=True`.
@@ -74,7 +75,10 @@ def plot_confusion_matrix(y_true, y_pred, classes,
     plt.ylim([-0.5, cm.shape[0]- 0.5])
 
     fig.tight_layout()
-    savefile = 'score-' + title
+    # save to directory
+    if not os.path.isdir(savedir):
+        os.mkdir(savedir)
+    savefile = savedir + '/score-' + title
     plt.savefig(savefile)
     return savefile, cm
 
