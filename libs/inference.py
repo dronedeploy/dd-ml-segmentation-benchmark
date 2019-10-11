@@ -100,7 +100,9 @@ class Inference(object):
         mask = category2mask(prediction)
         cv2.imwrite(predsfile, mask)
 
-def run_inference(dataset, model_name='baseline_model'):
+def run_inference(dataset, model_name='baseline_model', basedir="predictions"):
+    if not os.path.isdir(basedir):
+        os.mkdir(basedir)
 
     size = 1200
     modelpath = 'models'
@@ -116,7 +118,7 @@ def run_inference(dataset, model_name='baseline_model'):
 
         imagefile = f'{dataset}/images/{scene}-ortho.tif'
         labelfile = f'{dataset}/labels/{scene}-label.png'
-        predsfile = f"{scene}-prediction.png"
+        predsfile = f"{basedir}/{scene}-prediction.png"
 
         if not os.path.exists(imagefile):
             #print(f"image {imagefile} not found, skipping.")

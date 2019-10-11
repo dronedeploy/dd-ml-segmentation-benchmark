@@ -53,7 +53,9 @@ def run_inference_on_file(imagefile, predsfile, model, size=300):
     mask = category2mask(prediction)
     Image.fromarray(mask).save(predsfile)
 
-def run_inference(dataset, model=None, model_path=None, basedir='.'):
+def run_inference(dataset, model=None, model_path=None, basedir='predictions'):
+    if not os.path.isdir(basedir):
+        os.mkdir(basedir)
     if model is None and model_path is None:
         raise Exception("model or model_path required")
 
