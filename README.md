@@ -5,6 +5,24 @@ This repository contains a description of the DroneDeploy Segmentation Dataset a
 
 ![Example](https://github.com/dronedeploy/dd-ml-segmentation-benchmark/raw/master/img/example.jpg)
 
+### Quickstart
+
+```
+# clone this repository
+git clone https://github.com/dronedeploy/dd-ml-segmentation-benchmark.git
+cd dd-ml-segmentation-benchmark/
+# install requirements
+pip3 install -r requirements.txt
+# optional: log in to W&B to see your training metrics,
+# track your experiments, and submit your models to the benchmark
+wandb login
+# train Fastai model
+python3 main.py
+# train Keras model
+python3 main_keras.py
+
+```
+
 ### Training
 
 To start training a model on a small sample dataset run the following, once working you should use the *full dataset*  by changing `main.py`
