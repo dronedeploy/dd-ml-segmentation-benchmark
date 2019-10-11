@@ -52,10 +52,11 @@ def plot_confusion_matrix(y_true, y_pred, classes,
     im = ax.imshow(cm, interpolation='nearest', cmap=cmap)
     ax.figure.colorbar(im, ax=ax)
 
+    base, fname = os.path.split(title)
     ax.set(xticks=np.arange(cm.shape[1]),
            yticks=np.arange(cm.shape[0]),
            xticklabels=classes, yticklabels=classes,
-           title=title,
+           title=fname,
            ylabel='True label',
            xlabel='Predicted label')
 
@@ -79,6 +80,7 @@ def plot_confusion_matrix(y_true, y_pred, classes,
     if not os.path.isdir(savedir):
         os.mkdir(savedir)
     savefile = savedir + '/score-' + title
+
     plt.savefig(savefile)
     return savefile, cm
 
@@ -117,7 +119,7 @@ def score_masks(labelfile, predictionfile):
 
     return precision, recall, f1, savefile
 
-def score_predictions(dataset):
+def score_predictions(dataset, basedir='.'):
 
     scores = []
 
@@ -132,7 +134,7 @@ def score_predictions(dataset):
     for scene in test_ids:
 
         labelfile = f'{dataset}/labels/{scene}-label.png'
-        predsfile = f"{scene}-prediction.png"
+        predsfile = os.path.join(basedir, f"{scene}-prediction.png")
 
         if not os.path.exists(labelfile):
             continue

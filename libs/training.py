@@ -8,7 +8,7 @@ from fastai.callbacks.hooks import *
 from libs import inference
 from libs import scoring
 from libs.util import MySaveModelCallback, ExportCallback, MyCSVLogger, Precision, Recall, FBeta
-from libs import datasets
+from libs import datasets_fastai
 
 import wandb
 from wandb.fastai import WandbCallback
@@ -41,7 +41,7 @@ def train_model(dataset):
         FBeta(average='weighted', beta=1, clas_idx=1),
     ]
 
-    data = datasets.load_dataset(dataset, size, bs)
+    data = datasets_fastai.load_dataset(dataset, size, bs)
     encoder_model = models.resnet18
     learn = unet_learner(data, encoder_model, path='models', metrics=metrics, wd=wd, bottle=True, pretrained=pretrained)
 
