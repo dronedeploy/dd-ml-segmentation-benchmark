@@ -22,6 +22,10 @@ INV_LABELMAP = {
     (200, 130,   0) : 6,
 }
 
+LABELMAP_RGB = { k: (v[2], v[1], v[0]) for k, v in LABELMAP.items() }
+
+INV_LABELMAP_RGB = { v: k for k, v in LABELMAP_RGB.items() }
+
 train_ids = [
     "1d4fbe33f3_F1BE1D4184INSPIRE",
     "1df70e7340_4413A67E91INSPIRE",
