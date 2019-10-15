@@ -4,7 +4,7 @@ keras
 numpy==1.17.1
 opencv_python==3.4.3.18
 sklearn
-tensorflow
+tensorflow-gpu
 torch
 typing==3.6.6
 wandb

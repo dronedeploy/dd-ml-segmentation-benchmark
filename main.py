@@ -11,7 +11,7 @@ if __name__ == '__main__':
     # dataset = 'dataset-medium' # 9.0 GB download
 
     config = {
-        'name' : 'baseline',
+        'name' : 'baseline-fastai',
         'dataset' : dataset,
     }
 
@@ -28,7 +28,8 @@ if __name__ == '__main__':
     # scores all the test images compared to the ground truth labels then
     # send the scores (f1, precision, recall) and prediction images to wandb
     score, predictions = scoring.score_predictions(dataset)
-    wandb.config.update(score)
+    print(score)
+    wandb.log(score)
 
     for f1, f2 in predictions:
         wandb.save( f1 )

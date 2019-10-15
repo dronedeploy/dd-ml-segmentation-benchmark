@@ -26,7 +26,7 @@ def plot_confusion_matrix(y_true, y_pred, classes,
                           normalize=True,
                           title=None,
                           cmap=plt.cm.Blues,
-                          savedir="score_files"):
+                          savedir="predictions"):
     """
     This function prints and plots the confusion matrix.
     Normalization can be applied by setting `normalize=True`.
@@ -79,8 +79,7 @@ def plot_confusion_matrix(y_true, y_pred, classes,
     # save to directory
     if not os.path.isdir(savedir):
         os.mkdir(savedir)
-    savefile = savedir + '/score-' + title
-
+    savefile = title
     plt.savefig(savefile)
     return savefile, cm
 
@@ -119,7 +118,7 @@ def score_masks(labelfile, predictionfile):
 
     return precision, recall, f1, savefile
 
-def score_predictions(dataset, basedir='.'):
+def score_predictions(dataset, basedir='predictions'):
 
     scores = []
 
