@@ -14,11 +14,11 @@ import wandb
 from wandb.fastai import WandbCallback
 
 
-def train_model(dataset):
+def train_model(dataset, config):
     """ Trains a DynamicUnet on the dataset """
 
-    epochs = 15
-    lr     = 1e-4
+    epochs = config["epochs"]
+    lr     = config["lr"]
     size   = 300
     wd     = 1e-2
     bs     = 8 # reduce this if you are running out of GPU memory

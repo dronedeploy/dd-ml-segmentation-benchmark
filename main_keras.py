@@ -8,7 +8,7 @@ import wandb
 
 if __name__ == '__main__':
     dataset = 'dataset-sample'  #  0.5 GB download
-    # dataset = 'dataset-medium' # 9.0 GB download
+    #dataset = 'dataset-medium' # 9.0 GB download
 
     config = {
         'name' : 'baseline-keras',
@@ -29,4 +29,5 @@ if __name__ == '__main__':
     # scores all the test images compared to the ground truth labels then
     # send the scores (f1, precision, recall) and prediction images to wandb
     score, _ = scoring.score_predictions(dataset, basedir=wandb.run.dir)
-    wandb.config.update(score)
+    print(score)
+    wandb.log(score)
