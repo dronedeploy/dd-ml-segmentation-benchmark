@@ -29,4 +29,4 @@ if __name__ == '__main__':
     # scores all the test images compared to the ground truth labels then
     # send the scores (f1, precision, recall) and prediction images to wandb
     score, _ = scoring.score_predictions(dataset, basedir=wandb.run.dir)
-    wandb.config.update(score)
+    wandb.log(score)
