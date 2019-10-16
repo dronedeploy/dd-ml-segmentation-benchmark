@@ -21,7 +21,7 @@ wandb login
 python3 main_keras.py
 
 # train a Fastai model
-python3 main.py
+python3 main_fastai.py
 ```
 
 This will download the sample dataset and begin training a model. You can monitor training performance on [Weights & Biases](https://www.wandb.com/). Once training is complete, inference will be performed on all test scenes and a number of prediction images with names like `123123_ABCABC-prediction.png` will be created in the `wandb` directory. After the images are created they will be scored, and those scores stored in the `predictions` directory. Here's what a prediction looks like - not bad for 50 lines of code, but there is a lot of room for improvement:
