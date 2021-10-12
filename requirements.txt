@@ -2,7 +2,7 @@ fastai
 image-classifiers
 keras
 numpy==1.17.1
-opencv_python==3.4.3.18
+opencv_python==3.4.7.28
 sklearn
 tensorflow-gpu
 torch
