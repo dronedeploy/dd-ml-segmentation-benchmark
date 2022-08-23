@@ -1,7 +1,7 @@
 fastai
 image-classifiers
 keras
-numpy==1.17.1
+numpy==1.22.0
 opencv_python==3.4.3.18
 sklearn
 tensorflow-gpu
